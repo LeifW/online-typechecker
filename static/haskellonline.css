@@ -1,0 +1,62 @@
+html, body {
+  height: 100%;
+
+}
+#container {
+  height: 100%;
+}
+.pane {
+  display: none;
+}
+
+.CodeMirror-scroll {
+  height: auto;
+}
+
+.CodeMirror-x-errorLine {
+  color: #f00;
+}
+
+.CodeMirror-x-errorToken {
+  background: #fcc;
+}
+
+.CodeMirror-x-activeLine {
+  background: #f6faff !important;
+}
+
+/* Leave space for the error marker in the gutter. */
+.CodeMirror-gutter {
+  min-width: 3em;
+}
+
+#headerPane {
+  color: #48e;
+  font-size: 24pt;
+  font-weight: bold;
+}
+
+.clearButtonContainer {
+  float: right;
+}
+
+#result {
+  margin: 0;
+}
+
+.error {
+  color: #f00
+}
+
+.codepadComment {
+  font-size: x-small;
+}
+
+#footer {
+  color: #b1a9cd;
+  margin-top: 10px;
+  text-align: center;
+  font-size: small;
+  font-family: serif;
+  margin-bottom: 20px;
+}
