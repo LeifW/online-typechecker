@@ -13,7 +13,7 @@
 
     <script src="/static/codemirror/lib/codemirror.js"></script>
     <script src="/static/codemirror/mode/haskell/haskell.js"></script>
-    <script src="/static/codemirror/lib/util/foldcode.js"></script>
+    <script src="/static/codemirror/addon/fold/foldcode.js"></script>
     <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
 
     <link rel="stylesheet" href="/static/haskellonline.css">
@@ -47,7 +47,8 @@
 
   <div id="codePane" class="pane ui-layout-center">
     <form>
-      <textarea id="hs" name="hs">-- An online type checker for the Haskell programming language (see haskell.org).
+      <textarea id="hs" name="hs">
+-- An online type checker for the Haskell programming language (see haskell.org).
 
 -- Fix the typo to get rid of the compilation error.
 val = filtur (divides 3) [1..10]
@@ -210,7 +211,7 @@ instance Misty (State s) where
 
 
   <script>
-    HS_CSRF_TOKEN = "TVKPc0fOUd59dyOPOspDDhFkMdk6giJ9";
+    HS_CSRF_TOKEN = "q3SVpVZV4lQlSGqSRaAExee3H2QZR8Er";
   </script>
   <script src="/static/haskellonline.js"></script>
 </body>

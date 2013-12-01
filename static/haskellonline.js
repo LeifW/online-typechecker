@@ -25,8 +25,8 @@ $(document).ready(function () {
     onGutterClick: CodeMirror.newFoldFunction(CodeMirror.indentRangeFinder),
     // Highlight active line.
     onCursorActivity: function() {
-      EDITOR.setLineClass(HIGHLIGHTED_LINE, null, null);
-      HIGHLIGHTED_LINE = EDITOR.setLineClass(
+      EDITOR.addLineClass(HIGHLIGHTED_LINE, null, null);
+      HIGHLIGHTED_LINE = EDITOR.addLineClass(
           EDITOR.getCursor().line, null, "CodeMirror-x-activeLine");
     },
     // Indentation.
@@ -37,7 +37,7 @@ $(document).ready(function () {
     onChange: function (edt, changeDescription) { scheduleSubmission(); }
   });
 
-  HIGHLIGHTED_LINE = EDITOR.setLineClass(0, null, "CodeMirror-x-activeLine");
+  HIGHLIGHTED_LINE = EDITOR.addLineClass(0, null, "CodeMirror-x-activeLine");
 
   $('#clearButton').click(function() {
     EDITOR.setValue('');
