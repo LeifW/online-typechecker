@@ -13,7 +13,7 @@
 
     <script src="/static/codemirror/lib/codemirror.js"></script>
     <script src="/static/codemirror/mode/haskell/haskell.js"></script>
-    <script src="/static/codemirror/addon/fold/foldcode.js"></script>
+    <script src="/static/codemirror/lib/util/foldcode.js"></script>
     <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
 
     <link rel="stylesheet" href="/static/haskellonline.css">
@@ -48,143 +48,10 @@
   <div id="codePane" class="pane ui-layout-center">
     <form>
       <textarea id="hs" name="hs">
--- An online type checker for the Haskell programming language (see haskell.org).
+module Foo
 
--- Fix the typo to get rid of the compilation error.
-val = filtur (divides 3) [1..10]
-    where divides n x = (x `mod` n) == 0
-
-main = putStrLn (show val)
--- Click the button below the code editor to evaluate &#39;main&#39;.
-
--- That was easy!
--- If you are an intermediate haskeller, try solving the following exercises, courtesy of Tony Morris.
--- Source: http://blog.tmorris.net/20-intermediate-haskell-exercises/
--- If you can get a solution to typecheck, there is a very good chance that it is correct.
-
-class Fluffy f where
-  furry :: (a -&gt; b) -&gt; f a -&gt; f b
-
--- Exercise 1
--- Relative Difficulty: 1
-instance Fluffy [] where
-  furry = error &quot;todo&quot;
-
--- Exercise 2
--- Relative Difficulty: 1
-instance Fluffy Maybe where
-  furry = error &quot;todo&quot;
-
--- Exercise 3
--- Relative Difficulty: 5
-instance Fluffy ((-&gt;) t) where
-  furry = error &quot;todo&quot;
-
-newtype EitherLeft b a = EitherLeft (Either a b)
-newtype EitherRight a b = EitherRight (Either a b)
-
--- Exercise 4
--- Relative Difficulty: 5
-instance Fluffy (EitherLeft t) where
-  furry = error &quot;todo&quot;
-
--- Exercise 5
--- Relative Difficulty: 5
-instance Fluffy (EitherRight t) where
-  furry = error &quot;todo&quot;
-
-class Misty m where
-  banana :: (a -&gt; m b) -&gt; m a -&gt; m b
-  unicorn :: a -&gt; m a
-  -- Exercise 6
-  -- Relative Difficulty: 3
-  -- (use banana and/or unicorn)
-  furry&#39; :: (a -&gt; b) -&gt; m a -&gt; m b
-  furry&#39; = error &quot;todo&quot;
-
--- Exercise 7
--- Relative Difficulty: 2
-instance Misty [] where
-  banana = error &quot;todo&quot;
-  unicorn = error &quot;todo&quot;
-
--- Exercise 8
--- Relative Difficulty: 2
-instance Misty Maybe where
-  banana = error &quot;todo&quot;
-  unicorn = error &quot;todo&quot;
-
--- Exercise 9
--- Relative Difficulty: 6
-instance Misty ((-&gt;) t) where
-  banana = error &quot;todo&quot;
-  unicorn = error &quot;todo&quot;
-
--- Exercise 10
--- Relative Difficulty: 6
-instance Misty (EitherLeft t) where
-  banana = error &quot;todo&quot;
-  unicorn = error &quot;todo&quot;
-
--- Exercise 11
--- Relative Difficulty: 6
-instance Misty (EitherRight t) where
-  banana = error &quot;todo&quot;
-  unicorn = error &quot;todo&quot;
-
--- Exercise 12
--- Relative Difficulty: 3
-jellybean :: (Misty m) =&gt; m (m a) -&gt; m a
-jellybean = error &quot;todo&quot;
-
--- Exercise 13
--- Relative Difficulty: 6
-apple :: (Misty m) =&gt; m a -&gt; m (a -&gt; b) -&gt; m b
-apple = error &quot;todo&quot;
-
--- Exercise 14
--- Relative Difficulty: 6
-moppy :: (Misty m) =&gt; [a] -&gt; (a -&gt; m b) -&gt; m [b]
-moppy = error &quot;todo&quot;
-
--- Exercise 15
--- Relative Difficulty: 6
--- (bonus: use moppy)
-sausage :: (Misty m) =&gt; [m a] -&gt; m [a]
-sausage = error &quot;todo&quot;
-
--- Exercise 16
--- Relative Difficulty: 6
--- (bonus: use apple + furry&#39;)
-banana2 :: (Misty m) =&gt; (a -&gt; b -&gt; c) -&gt; m a -&gt; m b -&gt; m c
-banana2 = error &quot;todo&quot;
-
--- Exercise 17
--- Relative Difficulty: 6
--- (bonus: use apple + banana2)
-banana3 :: (Misty m) =&gt; (a -&gt; b -&gt; c -&gt; d) -&gt; m a -&gt; m b -&gt; m c -&gt; m d
-banana3 = error &quot;todo&quot;
-
--- Exercise 18
--- Relative Difficulty: 6
--- (bonus: use apple + banana3)
-banana4 :: (Misty m) =&gt; (a -&gt; b -&gt; c -&gt; d -&gt; e) -&gt; m a -&gt; m b -&gt; m c -&gt; m d -&gt; m e
-banana4 = error &quot;todo&quot;
-
-newtype State s a = State {
-  state :: (s -&gt; (s, a))
-}
-
--- Exercise 19
--- Relative Difficulty: 9
-instance Fluffy (State s) where
-  furry = error &quot;todo&quot;
-
--- Exercise 20
--- Relative Difficulty: 10
-instance Misty (State s) where
-  banana = error &quot;todo&quot;
-  unicorn = error &quot;todo&quot;
+a : String
+a = nope
 
 </textarea>
     </form>

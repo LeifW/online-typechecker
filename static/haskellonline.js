@@ -1,3 +1,10 @@
+/*
+$.get("/sources/Foo.idr", function(src) {
+  $(document).ready(function () {
+    EDITOR.setValue(src);
+  });
+});
+*/
 $(document).ready(function () {
   $('#container').layout({
     livePaneResizing: true,
@@ -25,8 +32,8 @@ $(document).ready(function () {
     onGutterClick: CodeMirror.newFoldFunction(CodeMirror.indentRangeFinder),
     // Highlight active line.
     onCursorActivity: function() {
-      EDITOR.addLineClass(HIGHLIGHTED_LINE, null, null);
-      HIGHLIGHTED_LINE = EDITOR.addLineClass(
+      EDITOR.setLineClass(HIGHLIGHTED_LINE, null, null);
+      HIGHLIGHTED_LINE = EDITOR.setLineClass(
           EDITOR.getCursor().line, null, "CodeMirror-x-activeLine");
     },
     // Indentation.
@@ -37,7 +44,7 @@ $(document).ready(function () {
     onChange: function (edt, changeDescription) { scheduleSubmission(); }
   });
 
-  HIGHLIGHTED_LINE = EDITOR.addLineClass(0, null, "CodeMirror-x-activeLine");
+  HIGHLIGHTED_LINE = EDITOR.setLineClass(0, null, "CodeMirror-x-activeLine");
 
   $('#clearButton').click(function() {
     EDITOR.setValue('');
@@ -60,7 +67,7 @@ var MARKED_LINES = [];
 var MARKED_TOKENS = [];
 var HIGHLIGHTED_LINE = 0;
 
-var ERROR_REGEXP = /^Module.hs:(\d+):(\d+):/gm;
+var ERROR_REGEXP = /^.*.idr:(\d+):(\d+):/gm;
 var MARKER_STRING = '\u25cf%N%';
 
 // The server has reported a failure, stop sending requests.
@@ -91,20 +98,25 @@ function submitCode() {
   }
   $.ajax({
     type: 'POST',
-    url: 'check_hs.json',
-    data: {
-      'hs': EDITOR.getValue(),
-      'csrfmiddlewaretoken': HS_CSRF_TOKEN,
-    },
+    url: '/sources/Foo.idr',
+    data: EDITOR.getValue(),
+    contentType: "text/x-haskell; charset=utf-8",
     success: validationResultsHandler,
-    dataType: 'json'
+    dataType: 'text'
   });
   REQUEST_PENDING = true;
 }
 
 function validationResultsHandler(data, textStatus, jqXHR) {
+  console.log("foo");
+  console.log(data);
+  console.log(textStatus);
+  console.log(jqXHR);
   REQUEST_PENDING = false;
-  markErrors(data.error || '');
+  markErrors(data || '');
+  //$('#result').addClass('error').html(data);
+  $('#result').html(data);
+  /*
   if (data.hasOwnProperty('error')) {
     $('#result').addClass('error').text(data.error);
   } else if (data.hasOwnProperty('failure')) {
@@ -113,6 +125,7 @@ function validationResultsHandler(data, textStatus, jqXHR) {
   } else {
     $('#result').removeClass('error').text(data.result);
   }
+  */
 
   if (REQUEST_QUEUED) {
     REQUEST_QUEUED = false;
@@ -121,6 +134,8 @@ function validationResultsHandler(data, textStatus, jqXHR) {
 }
 
 function markErrors(errorTrace) {
+  console.log("merkEruers");
+  console.log(errorTrace);
   // TODO: do not readd existing markers
   clearMarkers();
   while (match = ERROR_REGEXP.exec(errorTrace)) {
