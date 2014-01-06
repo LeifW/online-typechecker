@@ -26,9 +26,11 @@ html, body {
 }
 
 /* Leave space for the error marker in the gutter. */
+/*
 .CodeMirror-gutter {
   min-width: 3em;
 }
+*/
 
 #headerPane {
   color: #48e;

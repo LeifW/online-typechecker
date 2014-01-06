@@ -27,35 +27,32 @@ $(document).ready(function () {
     matchBrackets: true,
     autofocus: true,
     autoClearEmptyLines: true,
-    indentUnit: 4,
+    indentUnit: 2,
+    gutters: ["CodeMirror-x-errorLine"],
     // Code folding.
     onGutterClick: CodeMirror.newFoldFunction(CodeMirror.indentRangeFinder),
-    // Highlight active line.
-    onCursorActivity: function() {
-      EDITOR.setLineClass(HIGHLIGHTED_LINE, null, null);
-      HIGHLIGHTED_LINE = EDITOR.setLineClass(
-          EDITOR.getCursor().line, null, "CodeMirror-x-activeLine");
-    },
     // Indentation.
     extraKeys: {
       "Tab": function(cm) {cm.replaceSelection("    ", "end"); },
       "Shift-Tab": "indentLess"
-    },
-    onChange: function (edt, changeDescription) { scheduleSubmission(); }
+    }
+  });
+  
+    // Highlight active line.
+  EDITOR.on("cursorActivity", function() {
+    EDITOR.removeLineClass(HIGHLIGHTED_LINE, "background", "CodeMirror-x-activeLine");
+    HIGHLIGHTED_LINE = EDITOR.addLineClass(
+      EDITOR.getCursor().line, "background", "CodeMirror-x-activeLine");
   });
 
-  HIGHLIGHTED_LINE = EDITOR.setLineClass(0, null, "CodeMirror-x-activeLine");
+  EDITOR.on("change", function (edt, changeDescription) { scheduleSubmission(); });
+
+  HIGHLIGHTED_LINE = EDITOR.addLineClass(0, "background", "CodeMirror-x-activeLine");
 
   $('#clearButton').click(function() {
     EDITOR.setValue('');
   });
 
-  $('#executeButton').click(function() {
-    $('#codepadHs').text(EDITOR.getValue());
-    return true;
-  });
-
-  // Load initial validation result.
   submitCode();
 });
 
@@ -68,7 +65,7 @@ var MARKED_TOKENS = [];
 var HIGHLIGHTED_LINE = 0;
 
 var ERROR_REGEXP = /^.*.idr:(\d+):(\d+):/gm;
-var MARKER_STRING = '\u25cf%N%';
+var MARKER_STRING = '\u25cf';
 
 // The server has reported a failure, stop sending requests.
 var SERVICE_FAILURE = false;
@@ -148,12 +145,16 @@ function markErrors(errorTrace) {
 
 function addLineMarker(lineno) {
   MARKED_LINES.push(lineno);
-  EDITOR.setMarker(lineno, MARKER_STRING, 'CodeMirror-x-errorLine');
+  console.log("setting gutter");
+  console.log(lineno);
+  console.log(MARKER_STRING);
+  EDITOR.setGutterMarker(lineno, "CodeMirror-x-errorLine", $("<span class='CodeMirror-x-errorLine'>" + MARKER_STRING + "</span>")[0]); // document.createTextNode(MARKER_STRING)); //, 'CodeMirror-x-errorLine');
+  //EDITOR.setGutterMarker(lineno, "typecheck-error", document.createTextNode(MARKER_STRING)); //, 'CodeMirror-x-errorLine');
 }
 
 function clearMarkers() {
   $.each(MARKED_LINES, function (idx, n) {
-    EDITOR.clearMarker(n);
+    EDITOR.clearGutter("CodeMirror-x-errorLine");
   });
   MARKED_LINES = [];
 
@@ -168,7 +169,15 @@ function markToken(pos) {
   var marker = EDITOR.markText(
       { line: pos.line, ch: tokenInfo.start },
       { line: pos.line, ch: tokenInfo.end },
-      "CodeMirror-x-errorToken"
+      { className: "CodeMirror-x-errorToken"}
   );
   MARKED_TOKENS.push(marker);
+}
+
+function elemClassContent(elem, cls, cnt) {
+  var e = document.createElement(elem);
+  e.className = cls;
+  e.textContent = cnt;
+  //e.appendChild(document.createTextNode(cnt));
+  return e;
 }

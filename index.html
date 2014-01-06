@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Haskell Type Checker In Your Browser</title>
+    <title>Idris Type Checker In Your Browser</title>
     <meta charset="utf-8">
     <meta name="keywords" content="haskell,online,web,type checker" />
     <meta name="description" content="An online Haskell type checker that validates your code on-the-fly. Very handy for Haskell beginners!" />
@@ -13,24 +13,10 @@
 
     <script src="/static/codemirror/lib/codemirror.js"></script>
     <script src="/static/codemirror/mode/haskell/haskell.js"></script>
-    <script src="/static/codemirror/lib/util/foldcode.js"></script>
+    <script src="/static/codemirror/addon/fold/foldcode.js"></script>
     <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
 
     <link rel="stylesheet" href="/static/haskellonline.css">
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-6080477-9']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 
   </head>
 
@@ -39,7 +25,7 @@
 <div id="container">
 
   <div id="headerPane" class="pane ui-layout-north">
-    Haskell Type Checker
+    Idris Type Checker
     <div class="clearButtonContainer">
       <button id="clearButton">Clear code area</button>
     </div>
@@ -60,26 +46,11 @@ a = nope
   <div id="resultPane" class="pane ui-layout-east"><pre id="result"></pre></div>
 
   <div id="footerPane" class="pane ui-layout-south">
-    <form target="codepad-window" action="http://codepad.org/#output" method="post">
-      <textarea id="codepadHs" name="code" style="display: none"></textarea>
-      <input type="hidden" name="lang" value="Haskell" />
-      <input type="hidden" name="private" value="True" />
-      <input type="hidden" name="run" value="True" />
-      <input id="executeButton" target="codepadExecutor"
-             type="submit" name="submit" value="Execute on codepad.org" />
-      <span class="codepadComment">(opens new window)</span>
-    </form>
-
     <div id="footer">
-      &copy; 2012 <a href="http://gintautas.miliauskas.lt">Gintautas Miliauskas</a>
     </div>
   </div>
 </div> <!-- container -->
 
-
-  <script>
-    HS_CSRF_TOKEN = "q3SVpVZV4lQlSGqSRaAExee3H2QZR8Er";
-  </script>
   <script src="/static/haskellonline.js"></script>
 </body>
 

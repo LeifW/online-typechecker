@@ -1,6 +1,7 @@
 module IdrisClient (runClient) where
 import Network
-import System.IO (Handle, hPutStrLn, hGetLine, hClose, hIsEOF)
+--import System.IO (Handle, hPutStr, hGetLine, hClose, hIsEOF)
+import System.IO
 import Control.Monad.Loops (unfoldM)
 import Control.Applicative ((<$>))
 
@@ -8,6 +9,7 @@ import Control.Applicative ((<$>))
 runClient :: String -> IO String
 runClient str = withSocketsDo $ do
                   h <- connectTo "localhost" (PortNumber 4294)
+                  hSetBuffering h LineBuffering
                   hPutStrLn h str
                   respLines <- hGetLines h
                   hClose h
